@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:movie_app/representation/home/home_screen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,7 +25,7 @@ class _MainAppState extends State<MainApp> {
       body: IndexedStack(
         index: _currentIndex,
         children: [
-          Container(color: Colors.blue),
+          HomeScreen(),
           Container(color: Colors.brown),
           Container(color: Colors.cyan),
         ],
