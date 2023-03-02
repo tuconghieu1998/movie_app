@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:movie_app/representation/common/top_bar_widget.dart';
+import 'package:movie_app/representation/home/home_suggest_film.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,7 +18,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Column(
         children: [
-          TopBarWidget()
+          TopBarWidget(),
+          SingleChildScrollView(
+            child: Column(children: [
+              HomeSuggestFilm(),
+            ]),)
         ]
       ),
     );

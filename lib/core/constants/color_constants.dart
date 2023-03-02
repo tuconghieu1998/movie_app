@@ -5,6 +5,7 @@ class ColorPalette {
   static const Color secondColor = Color(0xff8F67E8);
   static const Color backgroundScaffoldColor = Color(0xffF2F2F2);
   static const Color textColor = Color(0xff313131);
+  static const Color buttonColor = Color(0xff4743E0);
 }
 
 class Gradients {
