@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:movie_app/representation/common/top_bar_widget.dart';
 import 'package:movie_app/representation/home/home_suggest_film.dart';
+import 'package:movie_app/representation/home/list_film.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,8 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           TopBarWidget(),
           SingleChildScrollView(
-            child: Column(children: [
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               HomeSuggestFilm(),
+              SizedBox(height: 15,),
+              ListFilm(title: "Trending Now"),
             ]),)
         ]
       ),
