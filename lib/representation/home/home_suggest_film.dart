@@ -7,6 +7,7 @@ import 'package:movie_app/core/helpers/image_helper.dart';
 import 'package:movie_app/representation/common/icon_button_widget.dart';
 import 'package:movie_app/representation/common/play_button_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:movie_app/representation/detail/detail_screen.dart';
 
 class HomeSuggestFilm extends StatefulWidget {
   const HomeSuggestFilm({super.key});
@@ -59,7 +60,9 @@ class _HomeSuggestFilmState extends State<HomeSuggestFilm> {
                               )
                             ]),
                         Spacer(),
-                        PlayButtonWidget(),
+                        PlayButtonWidget(onTap: () {
+                          Navigator.of(context).pushNamed(DetailScreen.routeName);
+                        },),
                       ],
                     ))),
           ],
