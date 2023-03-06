@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:movie_app/core/constants/color_constants.dart';
+import 'package:movie_app/representation/authen/login_screen.dart';
 import 'package:movie_app/representation/main_app.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void redirectIntroScreen () async {
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.of(context).pushNamed(MainApp.routeName);
+    Navigator.of(context).pushNamed(LoginScreen.routeName);
   }
 
   @override

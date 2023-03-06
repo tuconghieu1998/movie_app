@@ -10,6 +10,8 @@ import 'package:movie_app/representation/common/button_widget.dart';
 import 'package:movie_app/representation/common/icon_button_widget.dart';
 import 'package:movie_app/representation/home/list_film.dart';
 
+import '../../network/network_request.dart';
+
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key});
 
@@ -70,7 +72,9 @@ class _DetailScreenState extends State<DetailScreen> {
             SizedBox(height: 12,),
             ButtonWidget(title: "Play"),
             SizedBox(height: 12,),
-            ButtonWidget(title: "Download"),
+            ButtonWidget(title: "Download", onTap: (() => {
+              NetworkRequest.fetchPosts().then((data) => {})
+            }),),
 
             ]),
             ),
