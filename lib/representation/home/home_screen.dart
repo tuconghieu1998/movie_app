@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:movie_app/network/network_request.dart';
+import 'package:movie_app/representation/common/button_widget.dart';
 import 'package:movie_app/representation/common/top_bar_widget.dart';
 import 'package:movie_app/representation/home/home_suggest_film.dart';
 import 'package:movie_app/representation/home/list_film.dart';
@@ -26,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 SizedBox(height: 100,),
               HomeSuggestFilm(),
+              SizedBox(height: 15,),
               SizedBox(height: 15,),
               ListFilm(title: "Trending Now"),
               SizedBox(height: 35,),

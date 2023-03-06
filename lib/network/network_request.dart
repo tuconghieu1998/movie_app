@@ -1,11 +1,39 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:movie_app/core/model/movie.dart';
 
+import '../core/constants/network_constants.dart';
 import '../core/model/post.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkRequest {
   static final Uri uri = Uri.parse("https://jsonplaceholder.typicode.com/posts");
+
+  static Future<http.Response> get(String path, String params) async {
+    String url = "${NetworkConst.url}$path?api_key=${NetworkConst.apiKey}";
+    return await http.get(Uri.parse(url));
+  } 
+
+  static Future<String> getGuestSession() async {
+    final response = await NetworkRequest.get("/authentication/guest_session/new", "");
+    String guestSessionId = "";
+    if(response.statusCode == 200) {
+      final result = json.decode(response.body);
+      guestSessionId = result["guest_session_id"];
+    }
+    return guestSessionId;
+  }
+
+  static Future<List<Movie>> getTrendingMovies() async {
+    final response = await NetworkRequest.get("/trending/all/day", "");
+    List<Movie> movies = [];
+    if(response.statusCode == 200) {
+      final results = json.decode(response.body)["results"] as List<dynamic>;
+      movies = results.map((model) => Movie.fromJson(model)).toList();
+    }
+
+    return movies;
+  }
 
   static List<Post> parsePost(String responseBody) {
     print(responseBody);

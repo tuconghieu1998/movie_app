@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:movie_app/network/network_request.dart';
 import 'package:movie_app/representation/common/button_widget.dart';
+import 'package:movie_app/representation/main_app.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -55,7 +57,19 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 20,
             ),
-            ButtonWidget(title: "Continue with Guest"),
+            ButtonWidget(
+              title: "Continue with Guest",
+              onTap: () {
+                NetworkRequest.getGuestSession().then((guestSessionId) {
+                  if(guestSessionId != "") {
+                    print("GuestID: $guestSessionId");
+                    // TODO: save local guest session ID
+                    // call API with id
+                    Navigator.of(context).pushNamed(MainApp.routeName);
+                  }
+                });
+              },
+            ),
             SizedBox(
               height: 20,
             ),
