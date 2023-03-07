@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movie_app/core/constants/color_constants.dart';
+import 'package:movie_app/core/constants/network_constants.dart';
 import 'package:movie_app/core/helpers/asset_helper.dart';
 import 'package:movie_app/core/helpers/image_helper.dart';
 import 'package:movie_app/core/model/movie_detail.dart';
@@ -11,6 +12,7 @@ import 'package:movie_app/representation/common/button_widget.dart';
 import 'package:movie_app/representation/common/icon_button_widget.dart';
 import 'package:movie_app/representation/home/list_film.dart';
 
+import '../../core/helpers/utility_helper.dart';
 import '../../network/network_request.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -23,6 +25,18 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+
+  String _convertGenresToString(List<Genres> genres) {
+    var concatenate = StringBuffer();
+    for(int i = 0;i<genres.length;i++) {
+      concatenate.write(genres[i].name);
+      if(i < genres.length - 1) {
+        concatenate.write(" . ");
+      }
+    }
+    return concatenate.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     final data = ModalRoute.of(context)!.settings.arguments as MovieDetail;
@@ -34,7 +48,7 @@ class _DetailScreenState extends State<DetailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            ImageHelper.loadFromAsset(AssetHelper.largeBannerFilm1,
+            ImageHelper.loadFromUrl(NetworkConst.imgUrl + (data.backdropPath ?? ""),
                 height: 350, fit: BoxFit.fitHeight),
             Positioned(
               left: 0,
@@ -58,18 +72,19 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
             SizedBox(height: 5),
             Text(
-              "Comedy . Drama . Romance",
+              _convertGenresToString(data.genres??[]),
+              // "Comedy . Drama . Romance",
               style: TextStyle(fontSize: 14),
             ),
             SizedBox(height: 5),
 
             Text(
-              "2012 . HD . 18+ . 2h2m",
+              "${data.releaseDate?.split("-")[0]}${data.adult == true ? " . 18+": ""} . ${Utility.formatDuration(data.runtime ?? 0)}",
               style: TextStyle(fontSize: 14),
             ),
             SizedBox(height: 5),
             Text(
-              "Are you starting a website redesign project or creating a new webpage from scratch? The way forward can seem daunting, but formulating a thorough content plan beforehand will help simplify the process by laying the framework for the entire project.",
+              data.overview ?? "",
               style: TextStyle(fontSize: 14, color: ColorPalette.textColor),
             ),
             SizedBox(height: 12,),
