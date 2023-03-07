@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:movie_app/core/constants/network_constants.dart';
 import 'package:movie_app/core/helpers/asset_helper.dart';
+import 'package:movie_app/core/helpers/image_helper.dart';
 import 'package:movie_app/representation/home/film_item_widget.dart';
 
 import '../../core/model/movie.dart';
@@ -10,9 +11,10 @@ import '../../network/network_request.dart';
 import '../common/button_widget.dart';
 
 class ListFilm extends StatefulWidget {
-  const ListFilm({super.key, this.title});
+  const ListFilm({super.key, this.title, this.movies});
 
-  final String? title; 
+  final String? title;
+  final List<Movie>? movies;
 
   @override
   State<ListFilm> createState() => _ListFilmState();
@@ -20,23 +22,21 @@ class ListFilm extends StatefulWidget {
 
 class _ListFilmState extends State<ListFilm> {
 
-  List<Movie>? _movies;
-
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ButtonWidget(title: "Loading Trending", onTap: () {
-            print("Tap Loading Trending");
-                NetworkRequest.getTrendingMovies().then((movies) {
-                  print("Loading Trending ${movies.length}");
-                  setState(() {
-                    _movies = movies;
-                  });
-                });
-              },),
+          // ButtonWidget(title: "Reload", onTap: () {
+          //   print("Tap Loading Trending");
+          //       NetworkRequest.getTrendingMovies().then((movies) {
+          //         print("Loading Trending ${movies.length}");
+          //         setState(() {
+          //           _movies = movies;
+          //         });
+          //       });
+          //     },),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(widget.title ?? "", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
@@ -46,14 +46,14 @@ class _ListFilmState extends State<ListFilm> {
           scrollDirection: Axis.horizontal,
           child: 
               StatefulBuilder(builder: (context, setState) {
-                print("Render Movie ${(_movies?? []).length}");
+                //print("Render Movie ${(_movies?? []).length}");
                 return Row(
                   children: [
                     SizedBox(width: 20,),
                     ...
-                    (_movies ?? []).map((movie) {
+                    (widget.movies ?? []).map((movie) {
                       return Row(children: [
-                        FilmItemWidget(imgUrl: NetworkConst.imgUrl + (movie.posterPath ?? ""), movieId: movie.id,),
+                        FilmItemWidget(imgUrl: ImageHelper.getImgUrl(movie.posterPath ?? "", imgSize: "w154"), movieId: movie.id,),
                         SizedBox(width: 12,),
                       ],);
                         

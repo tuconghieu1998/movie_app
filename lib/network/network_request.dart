@@ -36,6 +36,17 @@ class NetworkRequest {
     return movies;
   }
 
+  static Future<List<Movie>> getRelatedMovies(int movieId) async {
+    final response = await NetworkRequest.get("/movie/$movieId/similar", "&language=en-US&page=1");
+    List<Movie> movies = [];
+    if(response.statusCode == 200) {
+      final results = json.decode(response.body)["results"] as List<dynamic>;
+      movies = results.map((model) => Movie.fromJson(model)).toList();
+    }
+
+    return movies;
+  }
+
   static Future<MovieDetail> getMovieDetail(int movieId) async {
     final response = await NetworkRequest.get("/movie/$movieId", "&language=en-US");
     MovieDetail? movieDetail;

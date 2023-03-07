@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:movie_app/core/constants/network_constants.dart';
 
 class ImageHelper {
  static Widget loadFromAsset(
@@ -43,5 +44,9 @@ class ImageHelper {
         alignment: alignment ?? Alignment.center,
       )
     );
+ }
+
+ static String getImgUrl(String imgName, {String imgSize = "original"}) {
+    return "${NetworkConst.imgUrl}/$imgSize$imgName";
  }
 }
