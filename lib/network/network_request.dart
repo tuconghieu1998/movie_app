@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:movie_app/core/model/movie.dart';
+import 'package:movie_app/core/model/movie_detail.dart';
 
 import '../core/constants/network_constants.dart';
 import '../core/model/post.dart';
@@ -10,7 +11,7 @@ class NetworkRequest {
   static final Uri uri = Uri.parse("https://jsonplaceholder.typicode.com/posts");
 
   static Future<http.Response> get(String path, String params) async {
-    String url = "${NetworkConst.url}$path?api_key=${NetworkConst.apiKey}";
+    String url = "${NetworkConst.url}$path?api_key=${NetworkConst.apiKey}$params";
     return await http.get(Uri.parse(url));
   } 
 
@@ -33,6 +34,16 @@ class NetworkRequest {
     }
 
     return movies;
+  }
+
+  static Future<MovieDetail> getMovieDetail(int movieId) async {
+    final response = await NetworkRequest.get("/movie/$movieId", "&language=en-US");
+    MovieDetail? movieDetail;
+    if(response.statusCode == 200) {
+      final result = json.decode(response.body);
+      movieDetail = MovieDetail.fromJson(result);
+    }
+    return (movieDetail ?? new MovieDetail());
   }
 
   static List<Post> parsePost(String responseBody) {

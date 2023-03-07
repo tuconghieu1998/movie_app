@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movie_app/core/constants/color_constants.dart';
 import 'package:movie_app/core/helpers/asset_helper.dart';
 import 'package:movie_app/core/helpers/image_helper.dart';
+import 'package:movie_app/core/model/movie_detail.dart';
 import 'package:movie_app/representation/common/button_widget.dart';
 import 'package:movie_app/representation/common/icon_button_widget.dart';
 import 'package:movie_app/representation/home/list_film.dart';
@@ -24,6 +25,8 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)!.settings.arguments as MovieDetail;
+
     return Scaffold(
         body: SafeArea(
       child: Stack(children: [
@@ -50,7 +53,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
  SizedBox(height: 12),
             Text(
-              "Silver Linings PlayBook",
+              data.title ?? "",
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5),

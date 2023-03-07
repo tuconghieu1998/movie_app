@@ -53,7 +53,7 @@ class _ListFilmState extends State<ListFilm> {
                     ...
                     (_movies ?? []).map((movie) {
                       return Row(children: [
-                        FilmItemWidget(imgUrl: NetworkConst.imgUrl + (movie.posterPath ?? "")),
+                        FilmItemWidget(imgUrl: NetworkConst.imgUrl + (movie.posterPath ?? ""), movieId: movie.id,),
                         SizedBox(width: 12,),
                       ],);
                         
